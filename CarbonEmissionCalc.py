@@ -87,11 +87,89 @@ class User:
 
     @staticmethod
     def show_data():
-        pass
+        """Displays data from the Excel file."""
+        file_name = "UserData.xlsx"
+    
+        if not os.path.exists(file_name):
+            print("No data available yet.")
+            return
+    
+        wb = openpyxl.load_workbook(file_name)
+        ws = wb.active
+    
+        print("\nUser Data:")
+        data = []
+        for i, row in enumerate(ws.iter_rows(values_only=True)):
+            if i == 0:
+                headers = row
+                continue
+            data.append(row)
+        print(tabulate.tabulate(data,headers=headers, tablefmt="fancy_grid"))
+
+    
     @staticmethod
     def show_trends():
         """Displays trends using matplotlib charts."""
-        pass
+        file_name = "UserData.xlsx"
+
+        if not os.path.exists(file_name):
+            print("No data available yet.")
+            return
+
+        wb = openpyxl.load_workbook(file_name)
+        ws = wb.active
+
+        usernames = []
+        energy_usage = []
+        total_waste = []
+        business_travel = []
+
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            usernames.append(row[1])  # Username
+            energy_usage.append(row[3])  # Energy Usage
+            total_waste.append(row[4])  # Total Waste
+            business_travel.append(row[5])  # Business Travel
+
+        # Prompt the user for the desired parameter to plot
+        while True:
+            print("Select a parameter to view trends:")
+            print("1. Energy Usage")
+            print("2. Total Waste")
+            print("3. Business Travel")
+            print("4. Back")
+            choice = input("Enter the number of your choice: ")
+
+            if choice == "1":
+                data = energy_usage
+                label = "Energy Usage"
+            elif choice == "2":
+                data = total_waste
+                label = "Total Waste"
+            elif choice == "3":
+                data = business_travel
+                label = "Business Travel"
+            elif choice == "4":
+                return
+            else:
+                print("Invalid choice!")
+                return
+
+            # Plotting the trend
+            plt.figure(figsize=(10, 6))
+            plt.plot(usernames, data, marker='o', label=label)
+
+            # Highlight the highest value
+            max_value = max(data)
+            max_index = data.index(max_value)
+            plt.plot(usernames[max_index], max_value, marker='o', markersize=10, color='red', label="Highest Emission")
+
+            plt.xlabel('Users')
+            plt.ylabel('Values')
+            plt.title(f'{label} Trend')
+            plt.xticks(rotation=45)
+            plt.legend()
+            plt.tight_layout()
+            plt.show()
     
 # Example usage
 if __name__ == "__main__":
