@@ -39,7 +39,7 @@ A Python-based application to calculate, analyze, and visualize carbon emissions
 ## How to Use
 1. Run the program:
    ```bash
-   python tracker.py
+   python CarbonEmissionCalc.py
    ```
 2. Follow the prompts to input data.
 3. Use the menu to:
