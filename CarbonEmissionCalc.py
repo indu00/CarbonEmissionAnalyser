@@ -136,7 +136,8 @@ class User:
             print("1. Energy Usage")
             print("2. Total Waste")
             print("3. Business Travel")
-            print("4. Back")
+            print("4. Overall Carbon Emissions (Pie Chart)")
+            print("5. Back")
             choice = input("Enter the number of your choice: ")
 
             if choice == "1":
@@ -149,6 +150,28 @@ class User:
                 data = business_travel
                 label = "Business Travel"
             elif choice == "4":
+                # Display pie chart for overall emissions
+                total_energy = sum(energy_usage)
+                total_waste_emissions = sum(total_waste)
+                total_travel = sum(business_travel)
+                category_totals = {
+                    "Energy": total_energy,
+                    "Waste": total_waste_emissions,
+                    "Travel": total_travel
+                }
+
+                plt.figure(figsize=(8, 8))
+                plt.pie(
+                    category_totals.values(),
+                    labels=category_totals.keys(),
+                    autopct='%1.1f%%',
+                    startangle=140,
+                    colors=['lightblue', 'lightgreen', 'salmon']
+                )
+                plt.title("Overall Carbon Emissions by Category")
+                plt.show()
+                continue
+            elif choice == "5":
                 return
             else:
                 print("Invalid choice!")
