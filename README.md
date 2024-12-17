@@ -34,7 +34,7 @@ A Python-based application to calculate, analyze, and visualize carbon emissions
    ```
 2. Navigate to the directory:
    ```bash
-   cd carbon-footprint-tracker
+   cd CarbonEmissionAnalyser
    ```
 ## How to Use
 1. Run the program:
