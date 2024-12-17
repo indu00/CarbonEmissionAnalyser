@@ -194,7 +194,7 @@ class User:
             plt.tight_layout()
             plt.show()
     
-# Example usage
+# Main Driver Function starts here
 if __name__ == "__main__":
     
     print("Welcome to the Carbon Footprint Tracker")
